@@ -21,29 +21,36 @@
     menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, 
     create_time, update_by, update_time, remark
   </sql>
-  
-  
-  <select id="selectAllMenu"   resultMap="BaseResultMap">
-    select * from tbl_menu		
-  </select>
-  <select id="selectMenuInfo"   resultMap="BaseResultMap">
-    select *
-		from tbl_menu
-		where 
-		<if test="visible != -1">
-			visible = #{visible} and
-		</if>
-			menu_name like concat("%",#{menuName},"%") 
-			
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
+  <select id="selectAllMenu" resultMap="BaseResultMap">
+      select * from tbl_menu
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  </select>
+
+    <select id="selectAllMenuByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT
+	m.*
+FROM
+	tbl_menu m
+INNER JOIN tbl_role_menu rm ON m.menu_id = rm.menu_id
+WHERE
+	rm.role_id IN (
+		SELECT
+			ur.role_id
+		FROM
+			tbl_user u
+		INNER JOIN tbl_user_role ur ON ur.user_id = u.user_id
+		WHERE
+			u.login_name = #{loginName}
+	)
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </delete>

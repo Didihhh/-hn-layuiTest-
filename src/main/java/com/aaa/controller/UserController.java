@@ -3,6 +3,7 @@ package com.aaa.controller;
 import com.aaa.biz.UserBiz;
 import com.aaa.entity.LayUiTable;
 import com.aaa.entity.MyUserInfo;
+import com.aaa.entity.User;
 import com.aaa.util.MyConstants;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
@@ -18,22 +19,25 @@ import java.util.*;
  * @Author: 陈建
  * @Date: 2020/5/22 0022 15:32
  * @Version 1.0
+ * 用户管理
  */
 @Controller
+//此处的RequestMapping是窄化请求，1年级
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserBiz userBizImpl;
 
-    @RequestMapping("/toShowUserLayui")
+    @RequestMapping("/toShowUser")
     public String toShowUserLayui() {
-        return "user/showUserLayui";
+        return "user/showUser";
     }
 
-    @RequestMapping("/showUserLayui")
+    @RequestMapping("/showUser")
     @ResponseBody
     public LayUiTable showUserLayui(int page, int limit) {
         //开始查询
-        PageInfo<MyUserInfo> pageInfo = userBizImpl.selectAllUser(page, limit);
+        PageInfo<User> pageInfo = userBizImpl.selectAllUser(page, limit);
         LayUiTable layUiTable = new LayUiTable();
         layUiTable.setCode(0);
         layUiTable.setMsg("返回消息");
@@ -45,7 +49,7 @@ public class UserController {
 
     @RequestMapping("/saveUser")
     @ResponseBody
-    public Object saveUser(MyUserInfo userInfo){
+    public Object saveUser(User userInfo){
         int i = userBizImpl.insertSelective(userInfo);
         Map map= new HashMap<>();
         if(i>0){
@@ -65,7 +69,7 @@ public class UserController {
      */
     @RequestMapping("/editUser")
     @ResponseBody
-    public Object editUser(MyUserInfo userInfo){
+    public Object editUser(User userInfo){
         int i = userBizImpl.updateByPrimaryKeySelective(userInfo);
         Map map= new HashMap<>();
         if(i>0){

@@ -1,6 +1,7 @@
 package com.aaa.biz;
 
 import com.aaa.entity.MyUserInfo;
+import com.aaa.entity.User;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public interface UserBiz {
 
-    PageInfo<MyUserInfo> selectAllUser(int page, int limit);
-    MyUserInfo selectUserByUsername(String username);
-    int insertSelective(MyUserInfo record);
+    PageInfo<User> selectAllUser(int page, int limit);
+    User selectUserByUsername(String username);
+    int insertSelective(User record);
     int delUserByID(List<String> ids);
-    int updateByPrimaryKeySelective(MyUserInfo record);
+    int updateByPrimaryKeySelective(User record);
 }
