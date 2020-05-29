@@ -42,10 +42,7 @@
     from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
-  <select id="selectAllMenu" resultMap="BaseResultMap">
-      select * from tbl_menu
 
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}

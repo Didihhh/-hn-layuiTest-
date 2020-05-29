@@ -13,11 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @Author: 陈建
- * @Date: 2020/5/28 0028 11:38
- * @Version 1.0
- */
 @Service
 public class MenuBizImpl implements MenuBiz {
     @Autowired
