@@ -21,6 +21,15 @@
     menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, 
     create_time, update_by, update_time, remark
   </sql>
+   <select id="selectMenuInfo"   resultMap="BaseResultMap">
+    select *
+		from tbl_menu
+		where 
+		<if test="visible != -1">
+			visible = #{visible} and
+		</if>
+			menu_name like concat("%",#{menuName},"%") 
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

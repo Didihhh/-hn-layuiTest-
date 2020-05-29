@@ -16,6 +16,17 @@
     dept_id, dept_name, order_num, status, del_flag, create_by, create_time, update_by, 
     update_time
   </sql>
+  
+  <select id="selectDeptInfo"   resultMap="BaseResultMap">
+    select *
+		from tbl_dept
+		where 
+		<if test="status != -1">
+			status = #{status} and
+		</if>
+			dept_name like concat("%",#{deptName},"%") 
+			
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

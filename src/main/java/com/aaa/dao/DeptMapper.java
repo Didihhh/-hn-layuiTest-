@@ -21,4 +21,6 @@ public interface DeptMapper {
 
     int updateByPrimaryKey(Dept record);
     List<Dept> selectAllDept();
+    
+    List<Dept> selectDeptInfo(int status,String deptName);
 }

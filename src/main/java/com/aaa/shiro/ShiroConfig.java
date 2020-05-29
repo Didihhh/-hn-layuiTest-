@@ -61,7 +61,7 @@ public class ShiroConfig {
         //放行login
         map.put("/login","anon");
         //过滤所有的请求
-        map.put("/*","authc");
+        map.put("/","authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         //修改登录页面，所有的未认证的请求都给我滚，滚去登录
         shiroFilterFactoryBean.setLoginUrl("/toLogin");
