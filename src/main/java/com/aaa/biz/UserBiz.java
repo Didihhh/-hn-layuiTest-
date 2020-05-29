@@ -13,7 +13,6 @@ import java.util.List;
  * 用户相关的业务方法
  */
 public interface UserBiz {
-
     PageInfo<User> selectAllUser(int page, int limit);
     User selectUserByUsername(String username);
     int insertSelective(User record);
