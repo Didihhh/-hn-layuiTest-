@@ -6,32 +6,31 @@ import java.util.Date;
 
 @Data
 public class Menu {
-    private Integer menuId;
+    private Integer menuId;    //菜单ID
 
-    private String menuName;
+    private String menuName;   //菜单名称
 
-    private Integer parentId;
+    private Integer parentId;   //父菜单ID	
 
-    private Integer orderNum;
+    private Integer orderNum;   //显示顺序
 
-    private String url;
+    private String url;        //请求地址
 
-    private String menuType;
+    private String menuType;  //菜单类型（M目录 C菜单 F按钮）
 
-    private String visible;
+    private String visible;   //菜单状态（0显示 1隐藏）
 
-    private String perms;
+    private String perms;      //权限标识
 
-    private String icon;
-
-    private String createBy;
-
-    private Date createTime;
-
-    private String updateBy;
-
-    private Date updateTime;
-
-    private String remark;
-
+    private String icon;       //菜单图标
+    
+    private String createBy;   //创建者
+    
+    private Date createTime;   //创建时间
+    
+    private String updateBy;   //更新者
+    
+    private Date updateTime;   //更新时间	
+    
+    private String remark;     //备注
 }
