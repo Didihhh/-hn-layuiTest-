@@ -8,6 +8,33 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 </head>
 <body>
+<!--查询表单-->
+<form class="layui-form" action="" id="searchForm" style="margin:12px 12px;" lay-filter="searchForm">
+    <span class="">登录名称：</span>
+    <div class="layui-inline">
+        <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" style="width:300px;">
+    </div>
+    <span style="margin-left:10px;">手机号码：</span>
+    <div class="layui-inline">
+        <input type="text" name="phone" lay-verify="title" autocomplete="off" placeholder="请输入号码" class="layui-input" style="width:300px;">
+    </div>
+    </br></br>
+    <span class="">用户状态：</span>
+    <div class="layui-inline" style="width:300px;">
+        <select id="userStatus" name="userStatus">
+            <option value=""></option>
+            <option value="0">正常</option>
+            <option value="1">停用</option>
+        </select>
+    </div>
+    <span style="margin-left:10px;">创建时间：</span>
+    <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="creatDate" id="date" placeholder=" - " style="width:300px;text-align: center;">
+    </div>
+    <button id="searchBtn" style="margin-left:10px;" type="button" class="layui-btn layui-btn-radius"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button type="reset" class="layui-btn layui-btn-warm layui-btn-radius"><i class="layui-icon">&#xe669;</i>重置</button>
+</form>
+<!--表格数据-->
 <table id="demo" lay-filter="test"></table>
 <script type="text/html" id="mytoolbar">
     <button type="button" class="layui-btn layui-btn-sm" lay-event="saveUser"><i class="layui-icon layui-icon-addition"></i>添加</button>
@@ -59,6 +86,19 @@
 <script>
     var form=layui.form;
     var table=layui.table;
+    var laydate = layui.laydate;
+
+    //日期范围
+    laydate.render({
+        elem: '#date'
+        ,range: true
+    });
+    //搜索表单取值
+    layui.$('#searchBtn').on('click', function(){
+        var data = form.val('searchForm');
+        alert(JSON.stringify(data));
+    });
+
     form.render();//渲染表单
         //第一个实例
        var myTable= table.render({
