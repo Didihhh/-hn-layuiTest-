@@ -51,4 +51,9 @@ public class RoleBizImpl implements RoleBiz {
     public int updateByPrimaryKeySelective(Role record) {
         return roleMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public List<Role> showRoleInfo(String roleName,String roleKey,String status ) {
+        return roleMapper.selectRoleInfo(roleName,roleKey,status);
+    }
 }

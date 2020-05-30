@@ -19,6 +19,8 @@ public interface RoleMapper {
 
     Role selectByPrimaryKey(Integer roleId);
 
+    List<Role> selectRoleInfo(@Param("roleName")String roleName, @Param("roleKey")String roleKey, @Param("status")String status);
+
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);

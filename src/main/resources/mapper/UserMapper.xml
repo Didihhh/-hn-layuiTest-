@@ -255,9 +255,9 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectUserInfo"  resultMap="BaseResultMap">
-    select * from tbl_user where login_name like concat("%",#{loginName},"%"),
-      phonenumber like concat("%",#{phonenumber},"%"),
+  <select id="selectUserInfo"  parameterType="Map" resultMap="BaseResultMap">
+    select * from tbl_user where login_name like concat("%",#{loginName},"%") and
+      phonenumber like concat("%",#{phonenumber},"%") and
       status = #{status}
   </select>
 
