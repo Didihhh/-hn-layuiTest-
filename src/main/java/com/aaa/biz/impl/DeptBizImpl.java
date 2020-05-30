@@ -51,4 +51,10 @@ public class DeptBizImpl implements DeptBiz {
 	{
 		deptMapper.updateByPrimaryKey(dept);
 	}
+
+	@Override
+	public int delDeptsByID(List<String> list) {
+		// TODO Auto-generated method stub
+		return deptMapper.delDeptsByID(list);
+	}
 }

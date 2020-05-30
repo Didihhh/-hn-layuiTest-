@@ -29,4 +29,6 @@ public interface MenuBiz {
 	void deleteMenu(Integer menuID);
 
 	void updateMenu(Menu menu);
+
+	int delMenusByID(List<String> list);
 }

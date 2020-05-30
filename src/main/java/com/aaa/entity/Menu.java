@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Data
 public class Menu {
     private Integer menuId;    //菜单ID
@@ -26,6 +30,8 @@ public class Menu {
     
     private String createBy;   //创建者
     
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;   //创建时间
     
     private String updateBy;   //更新者

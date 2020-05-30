@@ -6,8 +6,31 @@
     <script th:src="@{/js/jquery-1.10.2.js}"></script>
     <script th:src="@{/layui/layui.all.js}"></script>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <style>
+        .layui-hide {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+<!--查询表单-->
+<form class="layui-form" action="" id="searchForm" style="margin:12px 12px;" lay-filter="searchForm">
+    <span class="">部门名称：</span>
+    <div class="layui-inline">
+        <input type="text" name="deptName" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" style="width:300px;">
+    </div>
+    <span class="">部门状态：</span>
+    <div class="layui-inline" style="width:300px;">
+        <select id="status" name="userStatus">
+            <option value=""></option>
+            <option value="0">正常</option>
+            <option value="1">停用</option>
+        </select>
+    </div>
+    <button id="searchBtn" style="margin-left:10px;" type="button" class="layui-btn layui-btn-radius"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button type="reset" class="layui-btn layui-btn-warm layui-btn-radius"><i class="layui-icon">&#xe669;</i>重置</button>
+</form>
+<!--表格数据-->
 <table id="demo" lay-filter="test"></table>
 <script type="text/html" id="mytoolbar">
     <button type="button" class="layui-btn layui-btn-sm" lay-event="saveUser"><i class="layui-icon layui-icon-addition"></i>添加</button>
@@ -17,60 +40,102 @@
     <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn  layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
 </script>
-<form class="layui-form" action="" id="userSaveForm" style="display: none">
+<div class="layui-table-page"></div>
+<!--添加部门弹出框-->
+<form class="layui-form" action="" id="deptSaveForm" style="display:none;">
+<!--    <div class="layui-form-item">-->
+<!--        <span>上级部门：</span>-->
+<!--        <div class="layui-input-block">-->
+<!--            <input style="width:400px;background-color:#F8F8F8;" type="text" name="fatherDept" disabled="disabled" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--    </div>-->
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">部门名称：</label>
         <div class="layui-input-block">
-            <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <input style="width:400px;" type="text" name="deptName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">密  码</label>
+        <label class="layui-form-label">显示排序：</label>
         <div class="layui-input-block">
-            <input type="text" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input style="width:400px;" type="text" name="orderNum" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门状态：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="0" title="正常">
+            <input type="radio" name="status" value="1" title="停用" checked>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button"  	class="layui-btn layui-btn-normal" lay-submit lay-filter="saveUserForm">保存</button>
-            <button type="reset"  	class="layui-btn layui-btn-warm">重置</button>
+            <button type="button"  class="layui-btn layui-btn-normal" lay-submit lay-filter="saveDeptForm">确定</button>
+            <button type="button"  class="layui-btn layui-btn-warm" lay-filter="closeDeptForm">关闭</button>
         </div>
     </div>
-
 </form>
-<form class="layui-form" action="" id="userEditForm" style="display: none">
-    <input type="hidden" id="userid" name="userid" >
+<!--编辑弹出框-->
+<form class="layui-form" action="" id="deptEditForm" style="display: none">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">部门名称：</label>
         <div class="layui-input-block">
-            <input type="text" id="username" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <input type="text" name="deptName" id="deptName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">显示排序：</label>
+        <div class="layui-input-block">
+            <input type="text" name="orderNum" id="orderNum" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门状态：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="0" title="正常">
+            <input type="radio" name="status" value="1" title="停用" checked>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button"  	class="layui-btn layui-btn-normal" lay-submit lay-filter="editUserForm">修改</button>
-            <button type="reset"  	class="layui-btn layui-btn-warm">重置</button>
+            <button type="button"  class="layui-btn layui-btn-normal" lay-submit lay-filter="saveDeptForm">确定</button>
+            <button type="button"  class="layui-btn layui-btn-warm" lay-filter="closeDeptForm">关闭</button>
         </div>
     </div>
-
 </form>
 </body>
 <script>
     var form=layui.form;
     var table=layui.table;
+
+    //搜索表单取值
+    layui.$('#searchBtn').on('click', function(){
+        var data = form.val('searchForm');
+        alert(JSON.stringify(data));
+    });
+
+    //获取时间
+    function getNowTimeStr() {
+        var now = new Date();
+        return now.toLocaleDateString().replace(/\//g, "-") + " " + now.toTimeString().substr(0, 8);
+    }
+
     form.render();//渲染表单
         //第一个实例
        var myTable= table.render({
             elem: '#demo'
             ,height: 350
-            ,url: 'showDept' //数据接口
+            ,url: '/show/dept' //数据接口
+            ,page: true //开启分页
+            ,limit:6
+            ,limits:[5,10,15,20,25,30]
             ,toolbar: '#mytoolbar' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
             ,cols: [
                 [ //表头
                 {field: 'deptId', title: '部门编号', width:80, sort: true, fixed: 'left',checkbox: true}
                 ,{field: 'deptName', title: '部门名称', width:120, sort: true, fixed: 'left'}
                 ,{field: 'orderNum', title: '显示顺序', width:180}
-                ,{field: 'status', title: '状态', width:50}
+                ,{field: 'status', title: '状态', width:100}
                 ,{field: 'createTime', title: '创建时间', width:200}
                 ,{ title: '操作', width:200, toolbar: '#barDemo'}
             ]]
@@ -85,21 +150,12 @@
                     layer.open(
                         {
                             type: 1,
-                            content: $("#userSaveForm"),
+                            content: $("#deptSaveForm"),
                             icon: 1,
                             title:"添加用户",
-                            area: ['450px', '200px']
+                            area: ['660px', '440px']
                         }
                     )
-                    break;
-                case 'update':
-                    if(data.length === 0){
-                        layer.msg('请选择一行');
-                    } else if(data.length > 1){
-                        layer.msg('只能同时编辑一个');
-                    } else {
-                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
-                    }
                     break;
                 case 'delUser':
                     if(data.length === 0){
@@ -112,13 +168,13 @@
                                ids.push(data[i].userid);
                            }
                             $.ajax({
-                                url: 'delUser',//地址
+                                url: '/delete/dept',//地址
                                 dataType: 'json',//数据类型
                                 type: 'POST',//类型
                                 data:{ids:JSON.stringify(ids)},//将数组ids转换成json字符串
                                 //请求成功
                                 success: function (result) {
-                                    if(result.code==0){
+                                    if(result.code==200){
                                         //关闭弹出层
                                         layer.close(index);
                                         //显示删除成功消息
@@ -139,18 +195,20 @@
                     break;
             };
         });
-    //监听提交
-    form.on('submit(saveUserForm)', function(data){
+    //提交添加部门
+    form.on('submit(saveDeptForm)', function(data){
         //数据的提交，ajax方式
+        data.field.createTime = getNowTimeStr();//获取当前时间
+        data.field.createBy = "admin";//写死创建者
         console.log(data.field)
         $.ajax({
-            url: 'saveUser',//地址
+            url: '/add/dept',//地址
             dataType: 'json',//数据类型
             type: 'POST',//类型
             data:data.field,
             //请求成功
             success: function (result) {
-                if(result.code==0){
+                if(result.code==200){
                     //关闭弹出层
                     layer.closeAll();
                     //显示添加成功消息
@@ -167,17 +225,20 @@
         });
         return false;
     });
-    form.on('submit(editUserForm)', function(data){
+    //提交编辑
+    form.on('submit(editDeptForm)', function(data){
         //数据的提交，ajax方式
+        // data.field.updateTime = getNowTimeStr();//获取当前时间
+        data.field.updateBy = "admin";//写死更新者
         console.log(data.field)
         $.ajax({
-            url: 'editUser',//地址
+            url: '/update/dept',//地址
             dataType: 'json',//数据类型
             type: 'POST',//类型
             data:data.field,
             //请求成功
             success: function (result) {
-                if(result.code==0){
+                if(result.code==200){
                     //关闭弹出层
                     layer.closeAll();
                     //显示添加成功消息
@@ -207,18 +268,18 @@
                 //向服务端发送删除指令
             });
         } else if(layEvent === 'edit'){
-            layer.msg('编辑操作');
             //填充修改用户的表单项
             console.log(data);
-            $("#username").val(data.username);
-            $("#userid").val(data.userid);
+            $("#deptName").val(data.deptName);
+            $("#orderNum").val(data.orderNum);
+            $("#status").val(data.status);
             layer.open(
                 {
                     type: 1,
-                    content: $("#userEditForm"),
+                    content: $("#deptEditForm"),
                     icon: 1,
                     title:"修改用户",
-                    area: ['450px', '200px']
+                    area: ['660px', '440px']
                 }
             )
         }
