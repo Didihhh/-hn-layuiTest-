@@ -25,7 +25,7 @@ public interface UserMapper {
 
     User selectUserByUsername(String username);
 
-    List<User> selectUserInfo(String loginName,String phonenumber,String status,String createTime);
+    List<User> selectUserInfo(String loginName,String phonenumber,String status);
 
     int delUserByID( @Param("ids") List<String> ids);
     List<User> selectAllUser();

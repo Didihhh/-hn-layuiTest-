@@ -259,7 +259,6 @@
     select * from tbl_user where login_name like concat("%",#{loginName},"%"),
       phonenumber like concat("%",#{phonenumber},"%"),
       status = #{status},
-      create_time like concat("%",#{createTime},"%")
   </select>
 
 </mapper>

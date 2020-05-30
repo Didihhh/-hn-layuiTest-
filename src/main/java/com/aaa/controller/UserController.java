@@ -55,11 +55,10 @@ public class UserController {
                                    @RequestParam(value="limit", defaultValue="5") Integer limit,
                                    @Param(value="loginname") String loginName,
                                    @Param(value="phonenumber") String phonenumber,
-                                   @Param(value="status") String status,
-                                   @Param(value="createtime") String createTime) {
+                                   @Param(value="status") String status) {
         System.out.println("查询中...");
         //开始查询
-        PageInfo<User> pageInfo = userBizImpl.showUserInfo(page,limit,loginName,phonenumber,status,createTime);
+        PageInfo<User> pageInfo = userBizImpl.showUserInfo(page,limit,loginName,phonenumber,status);
         LayUiTable layUiTable = new LayUiTable();
         layUiTable.setCode(0);
         layUiTable.setMsg("返回消息");
