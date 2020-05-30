@@ -36,14 +36,8 @@ public class UserBizImpl implements UserBiz{
         }
 
     @Override
-    public PageInfo<User> showUserInfo(int page,int limit,String loginName,String phonenumber,String status ){
-
-        //开始分页,第一个参数是当前第几页，第二个参数是一页显示多少行
-        PageHelper.startPage(page,limit);
-        List<User> userInfo = userMapper.selectUserInfo(loginName,phonenumber,status);
-        //结束分页,pageInfo封装了分页之后所有数据
-        PageInfo<User> pageInfo = new PageInfo<User>(userInfo);
-        return pageInfo;
+    public List<User> showUserInfo(String loginName,String phonenumber,String status ){
+        return userMapper.selectUserInfo(loginName,phonenumber,status);
 
     }
 

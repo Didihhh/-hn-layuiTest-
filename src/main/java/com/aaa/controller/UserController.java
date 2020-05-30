@@ -3,6 +3,7 @@ package com.aaa.controller;
 import com.aaa.biz.UserBiz;
 import com.aaa.entity.Dept;
 import com.aaa.entity.LayUiTable;
+import com.aaa.entity.Role;
 import com.aaa.entity.User;
 import com.aaa.util.MyConstants;
 import com.alibaba.fastjson.JSON;
@@ -51,20 +52,17 @@ public class UserController {
     //	根据关键字查询数据
     @RequestMapping("/searchUser")
     @ResponseBody
-    public LayUiTable showUserInfo(@RequestParam(value="page", defaultValue="1") Integer page,
-                                   @RequestParam(value="limit", defaultValue="5") Integer limit,
-                                   @Param(value="loginname") String loginName,
+    public LayUiTable showUserInfo(
+                                   @Param(value="loginName") String loginName,
                                    @Param(value="phonenumber") String phonenumber,
                                    @Param(value="status") String status) {
         System.out.println("查询中...");
         //开始查询
-        PageInfo<User> pageInfo = userBizImpl.showUserInfo(page,limit,loginName,phonenumber,status);
+        List<User> users = userBizImpl.showUserInfo(loginName,phonenumber,status);
         LayUiTable layUiTable = new LayUiTable();
         layUiTable.setCode(0);
         layUiTable.setMsg("返回消息");
-        //设置分页之后的返回值
-        layUiTable.setCount(pageInfo.getTotal());
-        layUiTable.setData(pageInfo.getList());
+        layUiTable.setData(users);
         return layUiTable;
     }
 

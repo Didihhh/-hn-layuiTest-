@@ -15,7 +15,7 @@ import java.util.List;
 public interface UserBiz {
     PageInfo<User> selectAllUser(int page, int limit);
     //selectUserInfo()
-    public PageInfo<User> showUserInfo(int page,int limit,String loginName,String phonenumber,String status);
+    public List<User> showUserInfo(String loginName,String phonenumber,String status);
     User selectUserByUsername(String username);
     int insertSelective(User record);
     int delUserByID(List<String> ids);
