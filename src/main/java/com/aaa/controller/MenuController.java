@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,7 @@ public class MenuController {
 	@ResponseBody
 	public ResultEntity<Menu> addMenu(Menu menu)
 	{
+		menu.setCreateTime(new Date());
 		menuBiz.addMenu(menu);
 		return ResultEntity.successWithoutData();
 	}
