@@ -14,8 +14,11 @@ import java.util.List;
  */
 public interface UserBiz {
     PageInfo<User> selectAllUser(int page, int limit);
+    //selectUserInfo()
     User selectUserByUsername(String username);
     int insertSelective(User record);
     int delUserByID(List<String> ids);
     int updateByPrimaryKeySelective(User record);
+    int updateUser(User user);
+    User selectByPrimaryKey(int  userId);
 }

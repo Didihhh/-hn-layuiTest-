@@ -1,6 +1,7 @@
 package com.aaa.dao;
 
 import com.aaa.entity.Role;
+import com.aaa.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +22,8 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
     List<Role> selectAllRole();
+
+   Role selectRoleByRolename(String username);
+
+    int delRoleByID(List<String> ids);
 }

@@ -2,6 +2,7 @@ package com.aaa.biz.impl;
 
 import com.aaa.biz.UserBiz;
 import com.aaa.dao.UserMapper;
+import com.aaa.entity.Dept;
 import com.aaa.entity.User;
 import com.aaa.shiro.ShiroUtil;
 import com.github.pagehelper.PageHelper;
@@ -33,6 +34,16 @@ public class UserBizImpl implements UserBiz{
             return pageInfo;
 
         }
+
+//    @Override
+//    public PageInfo<Dept> showDeptInfo(int page, int limit, int status, String deptName) {
+//        //开始分页,第一个参数是当前第几页，第二个参数是一页显示多少行
+//        PageHelper.startPage(page,limit);
+//        List<Dept> deptInfo = userMapper.selectUserInfo(status,deptName);
+//        //结束分页,pageInfo封装了分页之后所有数据
+//        PageInfo<Dept> pageInfo = new PageInfo<Dept>(deptInfo);
+//        return pageInfo;
+//    }
 
         /**
          * 按照用户名查询用户信息
@@ -66,4 +77,14 @@ public class UserBizImpl implements UserBiz{
         public int updateByPrimaryKeySelective(User record) {
             return userMapper.updateByPrimaryKeySelective(record);
         }
+
+    @Override
+    public int updateUser(User user) {
+            return userMapper.updateUser(user);
+    }
+
+    @Override
+    public User selectByPrimaryKey(int userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }
