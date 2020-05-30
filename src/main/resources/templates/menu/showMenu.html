@@ -34,6 +34,23 @@
     </style>
 </head>
 <body>
+<!--查询表单-->
+<form class="layui-form" action="" id="searchForm" style="margin:12px 12px;" lay-filter="searchForm">
+    <span class="">菜单名称：</span>
+    <div class="layui-inline">
+        <input type="text" id="menuName_s" name="menuName" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" style="width:300px;">
+    </div>
+    <span class="">菜单状态：</span>
+    <div class="layui-inline" style="width:300px;">
+        <select id="status_s" name="menuStatus">
+            <option value=""></option>
+            <option value="0">显示</option>
+            <option value="1">隐藏</option>
+        </select>
+    </div>
+    <button id="searchBtn" style="margin-left:10px;" type="button" class="layui-btn layui-btn-radius"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button type="reset" class="layui-btn layui-btn-warm layui-btn-radius"><i class="layui-icon">&#xe669;</i>重置</button>
+</form>
 <div class="page-wrapper">
 
     <div class="layui-btn-container" style="display: inline-block;">
