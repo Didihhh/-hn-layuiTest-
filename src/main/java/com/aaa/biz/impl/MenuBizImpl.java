@@ -95,6 +95,12 @@ public class MenuBizImpl implements MenuBiz {
 		menuMapper.deleteByPrimaryKey(menuID);
 		
 	}
+	
+	@Override
+	public int delMenusByID(List<String> list) {
+		// TODO Auto-generated method stub
+		return menuMapper.delMenusByID(list);
+	}
 
 	@Override
 	public void updateMenu(Menu menu) {

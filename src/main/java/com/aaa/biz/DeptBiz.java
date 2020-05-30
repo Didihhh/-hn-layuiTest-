@@ -20,4 +20,5 @@ public interface DeptBiz {
 	void deleteDept(Integer deptID);
 
 	void updateDept(Dept dept);
+	int delDeptsByID(List<String> list);
 }
