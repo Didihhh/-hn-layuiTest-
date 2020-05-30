@@ -69,7 +69,6 @@ public class MenuController {
 		return ResultEntity.successWithoutData();
 	}
 
-
 	@RequestMapping("/delete/menu")
 	@ResponseBody
 	public ResultEntity<Menu> deleteMenu(@RequestParam(value="menuId") Integer menuId)
