@@ -36,6 +36,8 @@ public class Menu {
     
     private String updateBy;   //更新者
     
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;   //更新时间	
     
     private String remark;     //备注
