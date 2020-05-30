@@ -3,6 +3,7 @@ package com.aaa.dao;
 import com.aaa.entity.Role;
 import com.aaa.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,5 +26,5 @@ public interface RoleMapper {
 
    Role selectRoleByRolename(String username);
 
-    int delRoleByID(List<String> ids);
+    int delRoleByID(@Param("ids") List<String> ids);
 }
