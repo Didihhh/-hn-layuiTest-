@@ -26,5 +26,5 @@ public interface RoleMapper {
 
    Role selectRoleByRolename(String username);
 
-    int delRoleByID( @Param("ids")List<String> ids);
+    int delRoleByID( @Param("ids") List<String> ids);
 }
