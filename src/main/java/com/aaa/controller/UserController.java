@@ -1,6 +1,7 @@
 package com.aaa.controller;
 
 import com.aaa.biz.UserBiz;
+import com.aaa.entity.Dept;
 import com.aaa.entity.LayUiTable;
 import com.aaa.entity.User;
 import com.aaa.util.MyConstants;
@@ -50,17 +51,21 @@ public class UserController {
     //	根据关键字查询数据
     @RequestMapping("/searchUser")
     @ResponseBody
-    public LayUiTable showUserInfo(@Param(value="loginname") String loginName,
+    public LayUiTable showUserInfo(@RequestParam(value="page", defaultValue="1") Integer page,
+                                   @RequestParam(value="limit", defaultValue="5") Integer limit,
+                                   @Param(value="loginname") String loginName,
                                    @Param(value="phonenumber") String phonenumber,
                                    @Param(value="status") String status,
                                    @Param(value="createtime") String createTime) {
         System.out.println("查询中...");
         //开始查询
-        List<User> user = userBizImpl.showUserInfo(loginName,phonenumber,status,createTime);
+        PageInfo<User> pageInfo = userBizImpl.showUserInfo(page,limit,loginName,phonenumber,status,createTime);
         LayUiTable layUiTable = new LayUiTable();
         layUiTable.setCode(0);
         layUiTable.setMsg("返回消息");
-        layUiTable.setData(user);
+        //设置分页之后的返回值
+        layUiTable.setCount(pageInfo.getTotal());
+        layUiTable.setData(pageInfo.getList());
         return layUiTable;
     }
 
