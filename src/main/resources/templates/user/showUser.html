@@ -18,28 +18,24 @@
 		style="margin: 12px 12px;" lay-filter="searchForm">
 		<span class="">登录名称：</span>
 		<div class="layui-inline">
-			<input type="text" name="userName" lay-verify="title"
+			<input type="text" name="loginName" lay-verify="title"
 				autocomplete="off" placeholder="请输入名称" class="layui-input"
 				style="width: 300px;">
 		</div>
 		<span style="margin-left: 10px;">手机号码：</span>
 		<div class="layui-inline">
-			<input type="text" name="phone" lay-verify="title" autocomplete="off"
+			<input type="text" name="phonenumber" lay-verify="title" autocomplete="off"
 				placeholder="请输入号码" class="layui-input" style="width: 300px;">
 		</div>
 		</br> </br> <span class="">用户状态：</span>
 		<div class="layui-inline" style="width: 300px;">
-			<select id="userStatus" name="userStatus">
+			<select id="userStatus" name="status">
 				<option value=""></option>
 				<option value="0">正常</option>
 				<option value="1">停用</option>
 			</select>
 		</div>
-		<span style="margin-left: 10px;">创建时间：</span>
-		<div class="layui-input-inline">
-			<input type="text" class="layui-input" name="creatDate" id="date"
-				placeholder=" - " style="width: 300px; text-align: center;">
-		</div>
+		
 		<button id="searchBtn" style="margin-left: 10px;" type="button"
 			class="layui-btn layui-btn-radius">
 			<i class="layui-icon">&#xe615;</i>搜索
@@ -184,50 +180,6 @@
 	var table = layui.table;
 	var laydate = layui.laydate;
 
-// 	var loginName = document.getElementById("loginName");
-// 	var password = document.getElementById("password");
-// 	var email = document.getElementById("email");
-// 	var phonenumber = document.getElementById("phonenumber");
-// 	var status = document.getElementById("status");
-// 	var edit = document.getElementById("edit");
-// 	edit.onclick = function() {
-// 		var userid = edit.parentNode.parentNode.parentNode.getElementsByTagName("input")[0];
-
-// 		$.ajax({
-// 			url : 'updateUser',//地址
-// 			dataType : 'json',//数据类型
-// 			type : 'POST',//类型
-// 			data : {
-// 				userId : userid.value,
-// 				loginName : loginName.value,
-// 				password : password.value,
-// 				email : email.value,
-// 				phonenumber : phonenumber.value,
-// 				status : status.value
-// 			},
-// 			//请求成功
-// 			success : function(result) {
-// 				if (result.code == 0) {
-// 					//关闭弹出层
-// 					layer.closeAll();
-// 					//显示添加成功消息
-// 					layer.msg(result.message, {
-// 						icon : 1
-// 					})
-// 					//重新加载数据表格
-// 					myTable.reload();
-// 				} else {
-// 					//关闭弹出层
-// 					layer.closeAll();
-// 					layer.msg(result.message, {
-// 						icon : 5
-// 					})
-// 				}
-// 			}
-// 		});
-
-// 	}
-
 	//日期范围
 	laydate.render({
 		elem : '#date',
@@ -236,7 +188,36 @@
 	//搜索表单取值
 	layui.$('#searchBtn').on('click', function() {
 		var data = form.val('searchForm');
-		alert(JSON.stringify(data));
+		
+		$.ajax({
+			url : 'searchUser',//地址
+			dataType : 'json',//数据类型
+			type : 'POST',//类型
+			data : {
+				loginName: data.loginName,
+                phonenumber: data.phonenumber,
+                status: data.status//将数组ids转换成json字符串
+			},
+			//请求成功
+			success : function(result) {
+				if (result.code == 0) {
+					//关闭弹出层
+					layer.close(index);
+					//显示删除成功消息
+					layer.msg(result.message, {
+						icon : 1
+					})
+					//重新加载数据表格
+					myTable.reload();
+				} else {
+					//关闭弹出层
+					layer.close(index);
+					layer.msg(result.message, {
+						icon : 5
+					})
+				}
+			}
+		});
 	});
 
 	form.render();//渲染表单
@@ -248,7 +229,7 @@
 		,
 		page : true //开启分页
 		,
-		limit : 6,
+		limit : 5,
 		limits : [ 5, 10, 15, 20, 25, 30 ],
 		toolbar : '#mytoolbar' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
 		,
