@@ -17,7 +17,7 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer userId);
+    User selectByPrimaryKey(int  userId);
 
     int updateByPrimaryKeySelective(User record);
 
@@ -26,4 +26,8 @@ public interface UserMapper {
     User selectUserByUsername(String username);
     int delUserByID( @Param("ids") List<String> ids);
     List<User> selectAllUser();
+     int updateUser(String loginname,String email,String phonenumber,String password,String status);
+
+    int updateUser(User user);
 }
+

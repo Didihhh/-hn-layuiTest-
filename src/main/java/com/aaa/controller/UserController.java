@@ -1,6 +1,7 @@
 package com.aaa.controller;
 
 import com.aaa.biz.UserBiz;
+import com.aaa.entity.Dept;
 import com.aaa.entity.LayUiTable;
 import com.aaa.entity.MyUserInfo;
 import com.aaa.entity.User;
@@ -47,6 +48,26 @@ public class UserController {
         return layUiTable;
     }
 
+//    //	根据关键字查询数据并且分页显示
+//    @RequestMapping("/seachUser")
+//    @ResponseBody
+//    public LayUiTable showDeptInfo(
+//            @RequestParam(value="page", defaultValue="1") Integer page,
+//            @RequestParam(value="limit", defaultValue="5") Integer limit,
+//            @RequestParam(value="status", defaultValue="-1") Integer status,
+//            @RequestParam(value="deptName", defaultValue="") String deptName
+//    ) {
+//        //开始查询
+//        PageInfo<Dept> pageInfo = userBizImpl.showUserInfo(page, limit,status,deptName);
+//        LayUiTable layUiTable = new LayUiTable();
+//        layUiTable.setCode(0);
+//        layUiTable.setMsg("返回消息");
+//        //设置分页之后的返回值
+//        layUiTable.setCount(pageInfo.getTotal());
+//        layUiTable.setData(pageInfo.getList());
+//        return layUiTable;
+//    }
+
     @RequestMapping("/saveUser")
     @ResponseBody
     public Object saveUser(User userInfo){
@@ -81,6 +102,32 @@ public class UserController {
         }
         return map;
     }
+
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public Object updateUser(int userId,String loginname, String email, String phonenumber, String password, String status) {
+
+             User user = userBizImpl.selectByPrimaryKey(userId);
+             user.setLoginName(loginname);
+             user.setEmail(email);
+             user.setPhonenumber(phonenumber);
+             user.setPassword(password);
+             user.setStatus(status);
+             int i = userBizImpl.updateUser(user);
+             Map map= new HashMap<>();
+             if(i>0){
+                map.put("code",MyConstants.successCode);
+                map.put("message",MyConstants.editSuccessMsg);
+             }else {
+                map.put("code",MyConstants.failCode);
+                map.put("message",MyConstants.editFailMsg);
+             }
+             return map;
+
+
+    }
+
+
     @RequestMapping("/delUser")
     @ResponseBody
     public Object delUser( @RequestParam(value = "ids") String  ids){

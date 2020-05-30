@@ -23,4 +23,8 @@ public interface DeptMapper {
     List<Dept> selectAllDept();
     
     List<Dept> selectDeptInfo(int status,String deptName);
+
+	int delDeptsByID(List<String> list);
+
+	
 }

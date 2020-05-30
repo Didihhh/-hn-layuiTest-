@@ -1,6 +1,7 @@
 package com.aaa.biz;
 
 import com.aaa.entity.Role;
+import com.aaa.entity.User;
 
 import java.util.List;
 
@@ -11,4 +12,12 @@ import java.util.List;
  */
 public interface  RoleBiz {
    List<Role> selectAllRole();
+
+   public Role selectRoleByRolename(String username);
+
+   public int insertSelective(Role record);
+
+   public int delRoleByID(List<String> ids);
+
+   public int updateByPrimaryKeySelective(Role record);
 }

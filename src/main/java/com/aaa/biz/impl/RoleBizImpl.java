@@ -3,10 +3,13 @@ package com.aaa.biz.impl;
 import com.aaa.biz.RoleBiz;
 import com.aaa.dao.RoleMapper;
 import com.aaa.entity.Role;
+import com.aaa.entity.User;
+import com.aaa.shiro.ShiroUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author: 陈建
@@ -20,5 +23,32 @@ public class RoleBizImpl implements RoleBiz {
     @Override
     public List<Role> selectAllRole() {
         return roleMapper.selectAllRole();
+    }
+
+    /**
+     * 按照用户名查询用户信息
+     *
+     * @param username
+     * @return
+     */
+    @Override
+    public Role selectRoleByRolename(String username) {
+
+        return roleMapper.selectRoleByRolename(username);
+    }
+
+    @Override
+    public int insertSelective(Role record) {
+        return roleMapper.insertSelective(record);
+    }
+
+    @Override
+    public int delRoleByID(List<String> ids) {
+        return roleMapper.delRoleByID(ids);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Role record) {
+        return roleMapper.updateByPrimaryKeySelective(record);
     }
 }

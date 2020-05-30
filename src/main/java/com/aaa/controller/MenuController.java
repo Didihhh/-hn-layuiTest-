@@ -4,7 +4,9 @@ import com.aaa.biz.MenuBiz;
 import com.aaa.entity.LayUiTable;
 import com.aaa.entity.LayUiTree;
 import com.aaa.entity.Menu;
+import com.aaa.util.MyConstants;
 import com.aaa.util.ResultEntity;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 陈建
@@ -59,10 +64,9 @@ public class MenuController {
 	@ResponseBody
 	public ResultEntity<Menu> addMenu(Menu menu)
 	{
-		menuBiz.addMenu(menu);
+		menu.setCreateTime(new Date());
 		return ResultEntity.successWithoutData();
 	}
-
 
 	@RequestMapping("/delete/menu")
 	@ResponseBody
@@ -72,6 +76,19 @@ public class MenuController {
 		return ResultEntity.successWithoutData();
 	}
 	
+	
+    @RequestMapping("/delete/menus")
+    @ResponseBody
+    public Object delUser( @RequestParam(value = "menus") String  menus){
+        //将json字符串转换成list对象
+        List<String> list= (List<String>) JSON.parse(menus);
+        int i = menuBiz.delMenusByID(list);
+        if(i>0){
+        	return ResultEntity.successWithoutData();
+        }else {
+        	return ResultEntity.failed(MyConstants.delFailMsg);
+        }
+    }
 	@RequestMapping("/update/menu")
 	public ResultEntity<Menu> updateMenu(Menu menu)
 	{

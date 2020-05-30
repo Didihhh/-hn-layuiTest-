@@ -24,4 +24,6 @@ public interface MenuMapper {
     List<Menu> selectAllMenu();
     List<Menu>  selectAllMenuByName(String loginName);
     List<Menu> selectMenuInfo(Integer visible, String menuName);
+
+	int delMenusByID(List<String> list);
 }
