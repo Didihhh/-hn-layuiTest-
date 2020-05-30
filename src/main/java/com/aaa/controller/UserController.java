@@ -3,11 +3,12 @@ package com.aaa.controller;
 import com.aaa.biz.UserBiz;
 import com.aaa.entity.Dept;
 import com.aaa.entity.LayUiTable;
-import com.aaa.entity.MyUserInfo;
+import com.aaa.entity.Role;
 import com.aaa.entity.User;
 import com.aaa.util.MyConstants;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,25 +49,22 @@ public class UserController {
         return layUiTable;
     }
 
-//    //	根据关键字查询数据并且分页显示
-//    @RequestMapping("/seachUser")
-//    @ResponseBody
-//    public LayUiTable showDeptInfo(
-//            @RequestParam(value="page", defaultValue="1") Integer page,
-//            @RequestParam(value="limit", defaultValue="5") Integer limit,
-//            @RequestParam(value="status", defaultValue="-1") Integer status,
-//            @RequestParam(value="deptName", defaultValue="") String deptName
-//    ) {
-//        //开始查询
-//        PageInfo<Dept> pageInfo = userBizImpl.showUserInfo(page, limit,status,deptName);
-//        LayUiTable layUiTable = new LayUiTable();
-//        layUiTable.setCode(0);
-//        layUiTable.setMsg("返回消息");
-//        //设置分页之后的返回值
-//        layUiTable.setCount(pageInfo.getTotal());
-//        layUiTable.setData(pageInfo.getList());
-//        return layUiTable;
-//    }
+    //	根据关键字查询数据
+    @RequestMapping("/searchUser")
+    @ResponseBody
+    public LayUiTable showUserInfo(
+                                   @Param(value="loginName") String loginName,
+                                   @Param(value="phonenumber") String phonenumber,
+                                   @Param(value="status") String status) {
+        System.out.println("查询中...");
+        //开始查询
+        List<User> users = userBizImpl.showUserInfo(loginName,phonenumber,status);
+        LayUiTable layUiTable = new LayUiTable();
+        layUiTable.setCode(0);
+        layUiTable.setMsg("返回消息");
+        layUiTable.setData(users);
+        return layUiTable;
+    }
 
     @RequestMapping("/saveUser")
     @ResponseBody
@@ -105,10 +103,10 @@ public class UserController {
 
     @RequestMapping("/updateUser")
     @ResponseBody
-    public Object updateUser(int userId,String loginname, String email, String phonenumber, String password, String status) {
+    public Object updateUser(int userId,String loginName, String email, String phonenumber, String password, String status) {
 
              User user = userBizImpl.selectByPrimaryKey(userId);
-             user.setLoginName(loginname);
+             user.setLoginName(loginName);
              user.setEmail(email);
              user.setPhonenumber(phonenumber);
              user.setPassword(password);
