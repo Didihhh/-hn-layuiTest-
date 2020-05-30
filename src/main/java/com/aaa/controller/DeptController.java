@@ -67,7 +67,6 @@ public class DeptController {
 	@ResponseBody
 	public ResultEntity<Dept> addDept(Dept dept)
 	{
-		dept.setCreateTime(new Date());
 		deptBiz.addDept(dept);
 		return ResultEntity.successWithoutData();
 	}
