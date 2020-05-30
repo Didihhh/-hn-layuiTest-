@@ -258,7 +258,13 @@
   <select id="selectUserInfo"  resultMap="BaseResultMap">
     select * from tbl_user where login_name like concat("%",#{loginName},"%"),
       phonenumber like concat("%",#{phonenumber},"%"),
-      status = #{status},
+      status = #{status}
+  </select>
+
+  <select id="selectUser" parameterType="Map" resultMap="BaseResultMap">
+    select * from tbl_user where login_name = #{loginName} and
+      phonenumber = #{phonenumber} and
+      status = #{status}
   </select>
 
 </mapper>

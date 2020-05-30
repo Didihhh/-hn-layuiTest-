@@ -37,7 +37,7 @@ public class UserBizImpl implements UserBiz{
 
     @Override
     public List<User> showUserInfo(String loginName,String phonenumber,String status ){
-        return userMapper.selectUserInfo(loginName,phonenumber,status);
+        return userMapper.selectUser(loginName,phonenumber,status);
 
     }
 
