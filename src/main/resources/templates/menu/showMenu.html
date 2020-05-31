@@ -91,16 +91,16 @@
     <div class="layui-form-item">
         <label class="layui-form-label">上级菜单：</label>
         <div class="layui-input-block">
-            <input style="background-color: #F8F8F8;" type="text" id="parentName_s" name="parentName" disabled placeholder="" autocomplete="off" class="layui-input">
+            <input style="background-color: #F8F8F8;" type="text" id="fatherName_s" name="fatherName" disabled placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单类型：</label>
-        <div class="layui-input-block">
-            <input type="radio" name="menuType" value="M" title="目录">
-            <input type="radio" name="menuType" value="C" title="菜单">
-            <input type="radio" name="menuType" value="F" title="按钮">
-        </div>
+        <select name="menuType" style="display: inline;width:300px;height:38px;border:1px solid #e6e6e6;border-radius:2px;">
+            <option value="M">目录</option>
+            <option value="C">菜单</option>
+            <option value="F">按钮</option>
+        </select>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称：</label>
@@ -128,10 +128,10 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单状态：</label>
-        <div class="layui-input-block">
-            <input type="radio" name="visible" value="0" title="显示">
-            <input type="radio" name="visible" value="1" title="隐藏">
-        </div>
+        <select name="visible" style="display: inline;width:300px;height:38px;border:1px solid #e6e6e6;border-radius:2px;">
+            <option value="0">显示</option>
+            <option value="1">隐藏</option>
+        </select>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -151,16 +151,16 @@
     <div class="layui-form-item">
         <label class="layui-form-label">上级菜单：</label>
         <div class="layui-input-block">
-            <input type="text" style="background-color: #F8F8F8;" id="parentName_e" name="parentName" disabled placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" style="background-color: #F8F8F8;" id="fatherName_e" name="fatherName" disabled placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单类型：</label>
-        <div class="layui-input-block" id="menuType">
-            <input type="radio" name="menuType" value="M" title="目录">
-            <input type="radio" name="menuType" value="C" title="菜单">
-            <input type="radio" name="menuType" value="F" title="按钮">
-        </div>
+        <select id="menuType_e" style="display: inline;width:300px;height:38px;border:1px solid #e6e6e6;border-radius:2px;">
+            <option name="menuType" value="M">目录</option>
+            <option name="menuType" value="C">菜单</option>
+            <option name="menuType" value="F">按钮</option>
+        </select>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称：</label>
@@ -188,10 +188,10 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单状态：</label>
-        <div class="layui-input-block" id="visible">
-            <input type="radio" name="visible" value="0" title="显示">
-            <input type="radio" name="visible" value="1" title="隐藏">
-        </div>
+        <select id="visible_e" style="display: inline;width:300px;height:38px;border:1px solid #e6e6e6;border-radius:2px;">
+            <option name="visible" value="0">显示</option>
+            <option name="visible" value="1">隐藏</option>
+        </select>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -217,6 +217,12 @@
     var form=layui.form;
     var table=layui.table;
 
+    //获取时间
+    function getNowTimeStr() {
+        var now = new Date();
+        return now.toLocaleDateString().replace(/\//g, "-") + " " + now.toTimeString().substr(0, 8);
+    }
+
     //提交添加部门
     form.on('submit(saveMenuForm)', function(data){
         //数据的提交，ajax方式
@@ -236,7 +242,6 @@
                     //显示添加成功消息
                     layer.msg("添加成功",{icon:1})
                     //重新加载数据表格
-                    myTable.reload();
                 }else
                 {
                     //关闭弹出层
@@ -254,7 +259,7 @@
         data.field.updateBy = "admin";//写死更新者
         console.log(data.field)
         $.ajax({
-            url: '/update/dept',//地址
+            url: '/update/menu',//地址
             dataType: 'json',//数据类型
             type: 'POST',//类型
             data:data.field,
@@ -266,7 +271,6 @@
                     //显示添加成功消息
                     layer.msg("修改成功",{icon:1})
                     //重新加载数据表格
-                    myTable.reload();
                 }else
                 {
                     //关闭弹出层
@@ -328,6 +332,10 @@
         treeTable.on('tool(demoTreeTb)', function (obj) {
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
+            console.log(data)
+            if(data.fatherName==null){
+                data.fatherName = "主目录";
+            }
             if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
@@ -357,11 +365,12 @@
                 // obj.update({menuName: '新的名称'});
                 $("#menuId").val(data.menuId);
                 $("#menuName").val(data.menuName);
-                $("#parentName_e").val(data.parentName);
                 $("#orderNum").val(data.orderNum);
                 $("#url").val(data.url);
                 $("#perms").val(data.perms);
-
+                $("#visible_e").val(data.visible);
+                $("#fatherName_e").val(data.fatherName);
+                $("#menuType_e").val(data.menuType);
                 layer.open(
                     {
                         type: 1,
@@ -372,6 +381,7 @@
                     }
                 )
             } else if (layEvent === 'add') {
+                $("#fatherName_s").val(data.fatherName);
                 layer.open(
                     {
                         type: 1,
@@ -391,7 +401,7 @@
             var ids=[];
             switch (obj.event) {
                 case 'saveUser':
-                    $("#parentName_s").val("主目录");
+                    $("#fatherName_s").val("主目录");
                     layer.open(
                         {
                             type: 1,
