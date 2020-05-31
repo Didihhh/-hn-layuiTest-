@@ -64,7 +64,7 @@ public class MenuController {
 	@ResponseBody
 	public ResultEntity<Menu> addMenu(Menu menu)
 	{
-		menu.setCreateTime(new Date());
+		menuBiz.addMenu(menu);
 		return ResultEntity.successWithoutData();
 	}
 
