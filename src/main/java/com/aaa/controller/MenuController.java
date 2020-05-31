@@ -46,7 +46,7 @@ public class MenuController {
 	@ResponseBody
 	public LayUiTable showmenuInfo(
 			@RequestParam(value="page", defaultValue="1") Integer page,    //第几页
-			@RequestParam(value="limit", defaultValue="5") Integer limit,   //一页几条数据
+			@RequestParam(value="limit", defaultValue="1000") Integer limit,   //一页几条数据
 			@RequestParam(value="visible", defaultValue="-1") Integer visible,  //查询条件菜单状态，如果没有就不用传输该数据
 			@RequestParam(value="menuName", defaultValue="") String menuName    //查询条件菜单名字，如果没有就不用传输该数据
 			) {
