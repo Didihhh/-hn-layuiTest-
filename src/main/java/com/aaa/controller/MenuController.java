@@ -60,6 +60,7 @@ public class MenuController {
         layUiTable.setData(pageInfo.getList());
         return layUiTable;
     }
+	
 	@RequestMapping("/add/menu")
 	@ResponseBody
 	public ResultEntity<Menu> addMenu(Menu menu)
