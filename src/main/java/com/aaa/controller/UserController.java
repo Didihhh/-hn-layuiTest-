@@ -53,9 +53,9 @@ public class UserController {
     @RequestMapping("/searchUser")
     @ResponseBody
     public LayUiTable showUserInfo(
-                                   @Param(value="loginName") String loginName,
-                                   @Param(value="phonenumber") String phonenumber,
-                                   @Param(value="status") String status) {
+                                   @RequestParam(value="loginName",defaultValue="" ) String loginName,
+                                   @RequestParam(value="phonenumber",defaultValue="" ) String phonenumber,
+                                   @RequestParam (value="status",defaultValue="" ) String status) {
         System.out.println("查询中...");
         //开始查询
         List<User> users = userBizImpl.showUserInfo(loginName,phonenumber,status);

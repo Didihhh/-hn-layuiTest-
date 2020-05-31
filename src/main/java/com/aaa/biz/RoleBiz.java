@@ -20,4 +20,6 @@ public interface  RoleBiz {
    public int delRoleByID(List<String> ids);
 
    public int updateByPrimaryKeySelective(Role record);
+
+   public List<Role> showRoleInfo(String roleName,String roleKey,String status );
 }

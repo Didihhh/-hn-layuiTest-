@@ -174,4 +174,10 @@
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
 
+  <select id="selectRoleInfo" parameterType="Map" resultMap="BaseResultMap">
+    select * from tbl_role where role_name like concat("%",#{roleName},"%") and
+      role_key like concat("%",#{roleKey},"%") and
+      status = #{status}
+  </select>
+
 </mapper>

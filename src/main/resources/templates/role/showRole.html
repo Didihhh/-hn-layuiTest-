@@ -19,12 +19,12 @@
 		<div class="layui-inline">
 			<input type="text" name="roleName" lay-verify="title"
 				autocomplete="off" placeholder="" class="layui-input"
-				style="width: 300px;">
+				style="width: 300px;" id="roleName1">
 		</div>
 		<span style="margin-left: 10px;">权限字符：</span>
 		<div class="layui-inline">
 			<input type="text" name="roleKey" lay-verify="title" autocomplete="off"
-				placeholder="" class="layui-input" style="width: 300px;">
+				placeholder="" class="layui-input" style="width: 300px;" id="roleKey1">
 		</div>
 		</br> </br> <span class="">角色状态：</span>
 		<div class="layui-inline" style="width: 300px;">
@@ -125,43 +125,26 @@
     var table=layui.table;
     
   //搜索表单取值
-	layui.$('#searchBtn').on('click', function() {
-		var data = form.val('searchForm');
-		console.log(data);
-// 		$.ajax({
-// 			url : 'searchUser',//地址
-// 			dataType : 'json',//数据类型
-// 			type : 'POST',//类型
-// 			data : {
-// 				loginName: data.loginName,
-//                 phonenumber: data.phonenumber,
-//                 status: data.status//将数组ids转换成json字符串
-// 			},
-// 			//请求成功
-// 			success : function(result) {
-// 				if (result.code == 0) {
-// 					//关闭弹出层
-// 					layer.close(index);
-// 					//显示删除成功消息
-// 					layer.msg(result.message, {
-// 						icon : 1
-// 					})
-// 					//重新加载数据表格
-// 					myTable.reload();
-// 				} else {
-// 					//关闭弹出层
-// 					layer.close(index);
-// 					layer.msg(result.message, {
-// 						icon : 5
-// 					})
-// 				}
-// 			}
-// 		});
-	});
+  $('#searchBtn').click(function () {
+         var roleName1 = $('#roleName1').val();
+         var roleKey1 = $('#roleKey1').val();
+         var userStatus = $('#userStatus').val();
+
+         table.reload('testReload', {
+             url: 'searchRole'
+             ,where: {
+            	 roleName : roleName1,
+            	 roleKey : roleKey1,
+            	 status: userStatus
+             }
+         });
+     })
+	
   
     form.render();//渲染表单
         //第一个实例
        var myTable= table.render({
+    	   id:'testReload',
             elem: '#demo'
             ,height: 350
             ,url: 'showRole' //数据接口
