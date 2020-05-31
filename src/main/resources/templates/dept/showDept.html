@@ -10,6 +10,18 @@
         .layui-hide {
             display: block;
         }
+        #deptEditForm, #deptSaveForm{
+            margin:30px 35px;
+        }
+        #menuSaveForm input{
+            width:300px;
+        }
+        #deptSaveForm input{
+            width:300px;
+        }
+        #deptEditForm input{
+            width:300px;
+        }
     </style>
 </head>
 <body>
@@ -46,13 +58,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">部门名称：</label>
         <div class="layui-input-block">
-            <input style="width:400px;" type="text" name="deptName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" name="deptName" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">显示排序：</label>
         <div class="layui-input-block">
-            <input style="width:400px;" type="text" name="orderNum" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" name="orderNum" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -170,8 +182,8 @@
                         type: 1,
                         content: $("#deptSaveForm"),
                         icon: 1,
-                        title:"添加用户",
-                        area: ['660px', '440px']
+                        title:"添加部门",
+                        area: ['515px', '350px']
                     }
                 )
                 break;
@@ -286,28 +298,28 @@
                 //向服务端发送删除指令
             });
         } else if(layEvent === 'edit'){
-            //填充修改用户的表单项
+            //填充修改部门的表单项
             console.log(data);
             $("#deptName").val(data.deptName);
             $("#orderNum").val(data.orderNum);
             $("#deptId").val(data.deptId);
-            var ipt = $('#')
-            // $("#status_i").find("input").each(function () {//循环判断添加 radio
-            //     console.log($(this).val());
-            //     console.log(data.status);
-            //     if ($(this).val() == data.status) {
-            //         console.log($(this))
-            //         $(this).prop("checked", "true")
-            //     }
-            // })
+
+            $("#status_i").find("input").each(function () {//循环判断添加 radio
+                console.log($(this).val());
+                console.log(data.status);
+                if ($(this).val() == data.status) {
+                    console.log($(this))
+                    $(this).prop("checked", "true")
+                }
+            })
 
             layer.open(
                 {
                     type: 1,
                     content: $("#deptEditForm"),
                     icon: 1,
-                    title:"修改用户",
-                    area: ['660px', '440px']
+                    title:"修改部门",
+                    area: ['515px', '350px']
                 }
             )
         }
