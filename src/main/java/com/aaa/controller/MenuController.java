@@ -91,6 +91,7 @@ public class MenuController {
         }
     }
 	@RequestMapping("/update/menu")
+	@ResponseBody
 	public ResultEntity<Menu> updateMenu(Menu menu)
 	{
 		menuBiz.updateMenu(menu);
