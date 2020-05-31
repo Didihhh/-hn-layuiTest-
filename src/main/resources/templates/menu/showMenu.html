@@ -88,6 +88,12 @@
 </div>
 <!--添加菜单弹出框-->
 <form class="layui-form" action="" id="menuSaveForm" style="display:none;">
+    <div class="layui-form-item" style="display: none;">
+        <label class="layui-form-label">上级菜单：</label>
+        <div class="layui-input-block">
+            <input style="background-color: #F8F8F8;" type="text" id="parentId_s" name="fatherName" disabled placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">上级菜单：</label>
         <div class="layui-input-block">
@@ -382,6 +388,7 @@
                 )
             } else if (layEvent === 'add') {
                 $("#fatherName_s").val(data.fatherName);
+                $("#parentId_s").val(data.parentId);
                 layer.open(
                     {
                         type: 1,
