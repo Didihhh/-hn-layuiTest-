@@ -76,7 +76,17 @@ public class MenuBizImpl implements MenuBiz {
 	public PageInfo<Menu> showMenuInfo(Integer page, Integer limit, Integer visible, String menuName) {
 		 //开始分页,第一个参数是当前第几页，第二个参数是一页显示多少行
         PageHelper.startPage(page,limit);
+        int fatherId;
+        Menu menu=null;
         List<Menu> menuInfo = menuMapper.selectMenuInfo(visible,menuName);
+        
+        for(Menu m : menuInfo)
+        {
+        	fatherId=m.getParentId();
+        	menu=menuMapper.selectMenuNameById(fatherId);
+        	if(menu!=null)
+        		m.setFatherName(menu.getMenuName());
+        }
         //结束分页,pageInfo封装了分页之后所有数据
         PageInfo<Menu> pageInfo = new PageInfo<Menu>(menuInfo);
         return pageInfo;

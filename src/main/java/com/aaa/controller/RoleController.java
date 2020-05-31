@@ -44,6 +44,23 @@ public class RoleController {
         return layUiTable;
     }
 
+    //	根据关键字查询数据
+    @RequestMapping("/searchRole")
+    @ResponseBody
+    public LayUiTable showRoleInfo(
+            @RequestParam(value="roleName",defaultValue="" ) String roleName,
+            @RequestParam(value="roleKey",defaultValue="" ) String roleKey,
+            @RequestParam (value="status",defaultValue="" ) String status) {
+        System.out.println("查询中...");
+        //开始查询
+        List<Role> role = roleBizImpl.showRoleInfo(roleName,roleKey,status);
+        LayUiTable layUiTable = new LayUiTable();
+        layUiTable.setCode(0);
+        layUiTable.setMsg("返回消息");
+        layUiTable.setData(role);
+        return layUiTable;
+    }
+
     @RequestMapping("/saveRole")
     @ResponseBody
     public Object saveRole(Role roleInfo){

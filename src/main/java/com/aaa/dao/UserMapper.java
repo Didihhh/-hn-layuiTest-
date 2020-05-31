@@ -27,7 +27,9 @@ public interface UserMapper {
 
     List<User> selectUserInfo(String loginName,String phonenumber,String status);
 
-    int delUserByID( @Param("ids") List<String> ids);
+    List<User> selectUser( @Param("loginName")String loginName, @Param("phonenumber")String phonenumber, @Param("status")String status);
+
+   int delUserByID( @Param("ids") List<String> ids);
     List<User> selectAllUser();
      int updateUser(String loginname,String email,String phonenumber,String password,String status);
 

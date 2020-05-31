@@ -15,6 +15,8 @@ public class Menu {
     private String menuName;   //菜单名称
 
     private Integer parentId;   //父菜单ID	
+    
+    private String fatherName;   //菜单父名称
 
     private Integer orderNum;   //显示顺序
 
@@ -36,6 +38,8 @@ public class Menu {
     
     private String updateBy;   //更新者
     
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;   //更新时间	
     
     private String remark;     //备注
