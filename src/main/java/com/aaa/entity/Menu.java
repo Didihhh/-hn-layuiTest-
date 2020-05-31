@@ -15,6 +15,8 @@ public class Menu {
     private String menuName;   //菜单名称
 
     private Integer parentId;   //父菜单ID	
+    
+    private String fatherName;   //菜单父名称
 
     private Integer orderNum;   //显示顺序
 

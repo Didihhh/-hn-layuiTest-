@@ -21,6 +21,14 @@
     menu_id, menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, 
     create_time, update_by, update_time, remark
   </sql>
+  
+  <select id="selectMenuNameById"   resultMap="BaseResultMap">
+    select menu_name
+		from tbl_menu
+		where 
+			menu_id = #{fatherId} 
+  </select>
+  
    <select id="selectMenuInfo"   resultMap="BaseResultMap">
     select *
 		from tbl_menu
